@@ -52,7 +52,7 @@ function Login() {
     formData.append("email", email);
     formData.append("password", password);
 
-    fetch("http://localhost:8000/auth/login", {
+    fetch(import.meta.env.VITE_BACKEND_URL+"/auth/login", {
       method: "POST",
       body: formData,
     }).then((response) => {
@@ -63,7 +63,7 @@ function Login() {
           dispatch(login(data.result.token));
           async function dataUpdate() {
             const response = await fetch(
-              "http://localhost:8000/profile/login",
+              import.meta.env.VITE_BACKEND_URL+"/profile/login",
               {
                 headers: {
                   Authorization: "Bearer " + data.result.token,
@@ -83,7 +83,7 @@ function Login() {
             }
           }
           async function getCarts() {
-            const response = await fetch(`http://localhost:8000/carts`, {
+            const response = await fetch(import.meta.env.VITE_BACKEND_URL+`/carts`, {
               headers: {  
                 Authorization: "Bearer " + data.result.token,
               },

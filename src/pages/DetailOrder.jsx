@@ -17,7 +17,7 @@ function DetailOrder() {
   const [data, setData] = React.useState([])
   const [product, setProduct] = React.useState([])
   async function GetPayment() {
-    const response = await fetch(`http://localhost:8000/transaction/${id}`)
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/transaction/${id}`)
     const json = await response.json()
     setData(json.result)
     setLoading(false)
@@ -25,7 +25,7 @@ function DetailOrder() {
   }
   async function GetProduct() {
     const response = await fetch(
-      `http://localhost:8000/transaction/products/${id}`
+      `${import.meta.env.VITE_BACKEND_URL}/transaction/products/${id}`
     );
     const json = await response.json();
     setProduct(json.result);

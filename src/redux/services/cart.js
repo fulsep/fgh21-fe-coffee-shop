@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const cart = createApi({
   reducerPath: "query/cart",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:8000",
+    baseUrl: import.meta.env.VITE_BACKEND_URL,
   }),
   endpoints: (builder) => ({
     getCart: builder.query({

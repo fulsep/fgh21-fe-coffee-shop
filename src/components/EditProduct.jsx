@@ -16,7 +16,7 @@ function EditProduct(props) {
   const [product, setProduct] = React.useState([]);
   console.log(product)
   async function products() {
-    const dataProducts = await fetch("http://localhost:8000/products/" + props.id, {});
+    const dataProducts = await fetch(import.meta.env.VITE_BACKEND_URL+"/products/" + props.id, {});
     const listProduct = await dataProducts.json();
     setProduct(listProduct.result);
   }
@@ -35,7 +35,7 @@ function EditProduct(props) {
     form.append("description", description);
     form.append("price", price);
     form.append("stock", stock);
-    const dataProduct = await fetch("http://localhost:8000/products/" + props.id, {
+    const dataProduct = await fetch(import.meta.env.VITE_BACKEND_URL+"/products/" + props.id, {
       method: "PATCH",
       headers: {
         Authorization: "Bearer " + dataToken,

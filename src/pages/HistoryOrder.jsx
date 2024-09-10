@@ -12,7 +12,7 @@ function HistoryOrder() {
     const token = useSelector((state) => state.auth.token);
     const { data, err, isLoading } = useGetTransactionQuery(token);
     async function getTransaction() {
-        const response  = await fetch("http://localhost:8000/transaction", {
+        const response  = await fetch(import.meta.env.VITE_BACKEND_URL+"/transaction", {
             headers:{
                 Authorization: "Bearer " + token,
             }

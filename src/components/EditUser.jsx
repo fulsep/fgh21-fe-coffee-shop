@@ -48,7 +48,7 @@ function EditUser(props) {
       data.append("address", address);
     
       try {
-        const response = await fetch("http://localhost:8000/profile/"+props.id, {
+        const response = await fetch(import.meta.env.VITE_BACKEND_URL+"/profile/"+props.id, {
           method: "PATCH",
           body: data,
         })
@@ -82,14 +82,14 @@ function EditUser(props) {
     e.preventDefault()
     const form = new FormData()
     form.append("profileImg", file)
-    await fetch("http://localhost:8000/profile/img/"+props.id, {
+    await fetch(import.meta.env.VITE_BACKEND_URL+"/profile/img/"+props.id, {
       method: "PATCH",
       body: form,
     })
     props.closeMenu(false)
   }
     async function getData() {
-        const endPoint = 'http://localhost:8000/profile/' + props.id
+        const endPoint = import.meta.env.VITE_BACKEND_URL+'/profile/' + props.id
         const response = await fetch(endPoint);
         const data = await response.json()
         const listData = data.result

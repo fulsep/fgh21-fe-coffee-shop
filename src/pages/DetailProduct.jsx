@@ -1,35 +1,23 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../component/Navbar.jsx";
-import { FaStar, FaRegThumbsUp, FaMinus, FaPlus } from "react-icons/fa6";
-import { MdOutlineShoppingCart } from "react-icons/md";
-import coffe_1 from "../assets/img/coffe_1.svg";
-import coffe_2 from "../assets/img/coffe_2.svg";
-import coffe_3 from "../assets/img/coffe_3.svg";
-import coffe_4 from "../assets/img/coffe_4.svg";
-import Footer from "../component/Footer.jsx";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {  addCart } from "../redux/reducers/carts.js";
-import { useGetProductsQuery } from "../redux/services/products.js";
-import {
-  addQuantity,
-  addVariant,
-  addSize,
-  addProductId,
-} from "../redux/reducers/payment.js";
 import {
   useGetProductsQuery,
-  useListProductsQuery,
 } from "../redux/services/products.js";
-import AuthPopUp from "../components/AuthPopUp.jsx";
-import Loading from "../component/Loading";
 import axios from "axios";
-import GridProduct from "../components/GridProduct.jsx";
+import Navbar from '../component/Navbar.jsx'
+import Footer from '../component/Footer.jsx'
+import coffe_2 from '../img/coffe_2.svg'
+import coffe_3 from '../img/coffe_3.svg'
+import coffe_4 from '../img/coffe_4.svg'
+import {FaStar, FaRegThumbsUp, FaMinus, FaPlus} from 'react-icons/fa'
+import {MdOutlineShoppingCart} from 'react-icons/md'
 
 function DetailProduct() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const response = { message: "purchases cannot be empty" };
+  // const response = { message: "purchases cannot be empty" };
   const token = useSelector((state) => state.auth.token);
   const id = useParams().id;
   const [itemLoading, setLoading] = React.useState(true);
@@ -80,7 +68,7 @@ function DetailProduct() {
     formData.append("quantity", num);
     formData.append("variant", selectedTemperature);
     formData.append("productSize", selectedSize);
-    const response = await fetch(`http://localhost:8000/carts/${id}`, {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/carts/${id}`, {
       method: "POST",
       headers: {
         Authorization: "Bearer " + token,
@@ -103,13 +91,14 @@ function DetailProduct() {
       }, 3000);
     }
   }
-  // async function cart() {
-  //   const formData = new URLSearchParams();
-  //   formData.append("quantity", num);
-  //   formData.append("variant", selectedTemperature);
-  //   formData.append("productSize", selectedSize);
+  
+  async function cart() {
+    const formData = new URLSearchParams();
+    formData.append("quantity", num);
+    formData.append("variant", selectedTemperature);
+    formData.append("productSize", selectedSize);
 
-    const response = await fetch(`http://localhost:8000/carts/${id}`, {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/carts/${id}`, {
       method: "POST",
       headers: {
         Authorization: "Bearer " + token,
@@ -120,7 +109,7 @@ function DetailProduct() {
 
   async function recommendation() {
     const respont = await axios.get(
-      "http://localhost:8000/products/our-product/?page=1&limit=4"
+      "${import.meta.env.VITE_BACKEND_URL}/products/our-product/?page=1&limit=4"
     );
     setRecomend(respont.product);
   }

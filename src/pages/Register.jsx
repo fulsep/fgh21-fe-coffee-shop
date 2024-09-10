@@ -26,7 +26,7 @@ function Register() {
     data.append("email", email);
     data.append("password", password);
     data.append("cPassword", confirmPassword);
-    const response = await fetch("http://localhost:8000/auth/register", {
+    const response = await fetch(import.meta.env.VITE_BACKEND_URL+"/auth/register", {
       method: "POST",
       body: data,
     });

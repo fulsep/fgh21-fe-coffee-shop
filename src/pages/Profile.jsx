@@ -76,7 +76,7 @@ function Profile() {
     }
     formData.append("address", address);
 
-    const dataProfile = await fetch("http://localhost:8000/profile", {
+    const dataProfile = await fetch(import.meta.env.VITE_BACKEND_URL+"/profile", {
       method: "PATCH",
       headers: {
         Authorization: "Bearer " + token,
@@ -101,7 +101,7 @@ function Profile() {
   async function uploadImage(e) {
     setLoading(true)
     e.preventDefault();
-    const url = "http://localhost:8000/profile/img";
+    const url = import.meta.env.VITE_BACKEND_URL+"/profile/img";
     const formData = new FormData();
     formData.append("profileImg", file);
     const config = {
@@ -113,7 +113,7 @@ function Profile() {
     try{
       const respont = await axios.patch(url, formData, config);
       if (respont.data.success) {
-        const response = await fetch("http://localhost:8000/profile/login", {
+        const response = await fetch(import.meta.env.VITE_BACKEND_URL+"/profile/login", {
           headers: {
             Authorization: "Bearer " + token,
           },

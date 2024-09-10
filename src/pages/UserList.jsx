@@ -22,7 +22,7 @@ function UserList() {
   
 
   async function deleteItem(id) {
-    await fetch(`http://localhost:8000/profile/${id}`, {
+    await fetch(import.meta.env.VITE_BACKEND_URL+`/profile/${id}`, {
       method: "DELETE",
     });
     dataUser();
@@ -31,7 +31,7 @@ function UserList() {
   async function filterUsers(e) {
     e.preventDefault();
     const listDataUser = await fetch(
-      `http://localhost:8000/profile?page=${page}&search=${inputSearch}`,
+      import.meta.env.VITE_BACKEND_URL+`/profile?page=${page}&search=${inputSearch}`,
       {}
     );
 
@@ -44,7 +44,7 @@ function UserList() {
   async function paginationUsers(e) {
     e.preventDefault();
     const listDataUser = await fetch(
-      `http://localhost:8000/profile?page=${page}&search=${inputSearch}`,
+      import.meta.env.VITE_BACKEND_URL+`/profile?page=${page}&search=${inputSearch}`,
       {}
     );
     const listFilterUser = await listDataUser.json();
@@ -54,7 +54,7 @@ function UserList() {
   }
 
   async function dataUser() {
-    const endPoint = `http://localhost:8000/profile`;
+    const endPoint = import.meta.env.VITE_BACKEND_URL+`/profile`;
     const response = await fetch(endPoint);
     const data = await response.json();
     const listData = data.result;

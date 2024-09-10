@@ -21,9 +21,8 @@ function PaymentListOrder() {
   const [isError, setIsError] = React.useState(false)
   const [dataProduct, setDataProduct] = React.useState([])
   const [id, setId] = React.useState(0)
-  const token = useSelector((state) => state.auth.token);
   const profile = useSelector((state) => state.profile.data);
-  const price = cart.map((item) => item.price);
+  // const price = cart.map((item) => item.price);
   const [selectedDelivery, setSelectedDelivery] = React.useState(1);
   const { data, err, isLoading } = useGetCartQuery(token);
   const price = isLoading ? [] : data.result.map((item) => item.price);
@@ -34,7 +33,7 @@ function PaymentListOrder() {
   const tax = (total * 10) / 100;
   const subTotal = total + tax;
   async function GetCarts() {
-    const response = await fetch(`http://localhost:8000/carts`, {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/carts`, {
       headers: {  
         Authorization: "Bearer " + token,
       },
@@ -45,7 +44,7 @@ function PaymentListOrder() {
 
   }
   async function DeleteCarts() {
-    const response = await fetch(`http://localhost:8000/carts`, {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/carts`, {
       method: "DELETE",
       headers: {
         Authorization: "Bearer " + token,
@@ -82,7 +81,7 @@ function PaymentListOrder() {
       transactionStatus: 2,
     });
 
-    const response = await fetch(`http://localhost:8000/transaction`, {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/transaction`, {
       method: "POST",
       headers: {
         Authorization: "Bearer " + token,
@@ -117,7 +116,7 @@ function PaymentListOrder() {
             "variant": variant.map(item => item),
             "productSize": size.map(item => item),
           });
-          const response = await fetch(`http://localhost:8000/transaction/${item.id}`, {
+          const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/transaction/${item.id}`, {
             method: "POST",
             headers:{
               "Content-Type": "application/x-www-form-urlencoded"

@@ -22,20 +22,20 @@ function ProductList() {
 
 
   async function products() {
-    const dataProducts = await fetch("http://localhost:8000/products/", {});
+    const dataProducts = await fetch(import.meta.env.VITE_BACKEND_URL+"/products/", {});
     const listProduct = await dataProducts.json();
     setProduct(listProduct.result);
   }
   
   async function filterProducts(e) {
     e.preventDefault()
-    const dataProducts = await fetch(`http://localhost:8000/products/filter/?title=${search}&page=${page}`, {});
+    const dataProducts = await fetch(import.meta.env.VITE_BACKEND_URL+`/products/filter/?title=${search}&page=${page}`, {});
     const listProduct = await dataProducts.json();
     setProduct(listProduct.result);
   }
 
   async function allProduct() {
-    const dataProducts = await fetch(`http://localhost:8000/products/filter/?title=${search}&limit=1000&page=${page}`, {});
+    const dataProducts = await fetch(import.meta.env.VITE_BACKEND_URL+`/products/filter/?title=${search}&limit=1000&page=${page}`, {});
     const listProduct = await dataProducts.json();
     setTotalProduct(listProduct.result.length)
   } 
@@ -58,7 +58,7 @@ function ProductList() {
 
 
   function removeData(id) {
-    fetch("http://localhost:8000/products/" + id, {
+    fetch(import.meta.env.VITE_BACKEND_URL+"/products/" + id, {
       method: "DELETE",
     })
       .then(() => {

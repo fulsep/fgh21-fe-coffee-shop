@@ -21,7 +21,7 @@ function OrderList() {
 
   
   async function deleteItem(id) {
-    await fetch(`http://localhost:8000/transaction/${id}`, {
+    await fetch(`${import.meta.env.VITE_BACKEND_URL}/transaction/${id}`, {
       method: "DELETE",
     });
     dataTransaction();
@@ -31,7 +31,7 @@ function OrderList() {
     console.log(inputSearch);
     e.preventDefault();
     const listDataTransaction = await fetch(
-      `http://localhost:8000/transaction/admin?page=${page}&search=${inputSearch}`,
+      `${import.meta.env.VITE_BACKEND_URL}/transaction/admin?page=${page}&search=${inputSearch}`,
       {}
     );
     const listFilterTransaction = await listDataTransaction.json();
@@ -44,7 +44,7 @@ function OrderList() {
     // e.preventDefault();
     // const status = e.target.findStatus.value
     const listDataTransaction = await fetch(
-      `http://localhost:8000/transaction/status?search=${status}`,
+      `${import.meta.env.VITE_BACKEND_URL}/transaction/status?search=${status}`,
       {}
     );
     const listFilterTransaction = await listDataTransaction.json();
@@ -56,7 +56,7 @@ function OrderList() {
   async function paginationTransactions(e) {
     e.preventDefault();
     const listDataTransaction = await fetch(
-      `http://localhost:8000/transaction/admin?page=${page}&search=${inputSearch}`,
+      `${import.meta.env.VITE_BACKEND_URL}/transaction/admin?page=${page}&search=${inputSearch}`,
       {}
     );
     const listFilterTransaction = await listDataTransaction.json();
@@ -66,7 +66,7 @@ function OrderList() {
   }
 
   async function dataTransaction() {
-    const endPoint = `http://localhost:8000/transaction/admin`;
+    const endPoint = `${import.meta.env.VITE_BACKEND_URL}/transaction/admin`;
     const response = await fetch(endPoint);
     const data = await response.json();
     const listData = data.result;
